@@ -16,28 +16,23 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
-    //    /**
-    //     * @return Book[] Returns an array of Book objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('b')
-    //            ->andWhere('b.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('b.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findPaginatedBooks(int $page, int $itemsPerPage): array
+    {
+        $offset = ($page - 1) * $itemsPerPage;
 
-    //    public function findOneBySomeField($value): ?Book
-    //    {
-    //        return $this->createQueryBuilder('b')
-    //            ->andWhere('b.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        return $this->createQueryBuilder('b')
+            ->setFirstResult($offset)
+            ->setMaxResults($itemsPerPage)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function countBooks(): int
+    {
+        return $this->createQueryBuilder('b')
+            ->select('COUNT(b.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 }

@@ -1,25 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BookController!{% endblock %}
+{% block title %}{{ book.title }} | BookShop{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    {% if book is not empty %}
-        <h2>{{ book.title }}</h2>
-        <p>{{ book.author }}</p>
-        <p>{{ book.description }}</p>
-        <img src="{{ book.image }}" alt="{{ book.title }}">
-    {% else %}
-        <p>Book not found.</p>
-    {% endif %}
-
-
-</div>
+<section class="section">
+    <div class="book">
+        {% if book is not empty %}
+            <img src="{{ asset(book.image) }}" alt="{{ book.title }}" class="book__img">
+            <div class="book__more">
+                <h2 class="book__more-title">{{ book.title }}</h2>
+                <p class="book__more-p">{{ book.author }}</p>
+                <p class="book__more-p">{{ book.description }}</p>
+            </div>
+        {% else %}
+            <p>Book not found.</p>
+        {% endif %}
+    </div>
+</section>
 {% endblock %}

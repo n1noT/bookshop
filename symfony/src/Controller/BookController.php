@@ -9,24 +9,20 @@ use App\Repository\BookRepository;
 
 final class BookController extends AbstractController
 {
-    #[Route('/book', name: 'app_book')]
-    public function index(BookRepository $bookRepository): Response
-    {
-        $books = $bookRepository->findAll();
-
-        return $this->render('book/index.html.twig', [
-            'controller_name' => 'BookController',
-            'books' => $books,
-        ]);
-    }
-
     #[Route('/book/{id}', name: 'app_book_show')]
     public function show(BookRepository $bookRepository, int $id): Response
     {
-        $book = $bookRepository->find($id);
+        $bookData = $bookRepository->find($id);
+
+        $book = [
+            'id' => $bookData->getId(),
+            'title' => $bookData->getTitle(),
+            'author' => $bookData->getAuthor(),
+            'description' => $bookData->getDescription(),
+            'image' => $bookData->getImage() ? 'uploads/' . $bookData->getImage() : 'image/default.jpg',
+        ];
 
         return $this->render('book/show.html.twig', [
-            'controller_name' => 'BookController',
             'book' => $book,
         ]);
     }
