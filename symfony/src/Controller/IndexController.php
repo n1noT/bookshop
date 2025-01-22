@@ -21,12 +21,14 @@ final class IndexController extends AbstractController
         $itemsPerPage = 10;
 
         $booksData = $bookRepository->findPaginatedBooks($page, $itemsPerPage);
-
+        
+        $books = [];
         foreach ($booksData as $book) {
             $books[] = [
                 'id' => $book->getId(),
                 'title' => $book->getTitle(),
                 'image' => $book->getImage() ? 'uploads/' . $book->getImage() : 'image/default.jpg',
+                'isInCollection' => $book->getUsers()->contains($this->getUser()),
             ];
         }
 

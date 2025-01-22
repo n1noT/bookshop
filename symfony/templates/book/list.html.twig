@@ -4,6 +4,10 @@
 
 {% block body %}
 <section class="section">
+    <h2 class="section__title">My Books {{app.user.email}}</h2>
+    <button>
+        <a href="{{ path('app_book_add') }}">Add Book</a>
+    </button>
     {% if books is not empty %}
         <ul class="books">
             {% for book in books %}
@@ -12,11 +16,6 @@
                         <img src="{{ asset(book.image) }}" alt="{{ book.title }}" class="books__img">
                         <h3 class="books__title">{{ book.title }}</h3>
                     </a>
-                    {% if book.isInCollection %}
-                        <a href="{{ path('app_book_remove', { id: book.id }) }}">-</a>
-                    {% else %}
-                        <a href="{{ path('app_book_add_by_id', { id: book.id }) }}">+</a>
-                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
@@ -24,7 +23,7 @@
         <p>No books found.</p>
     {% endif %}
 
-    <div class="pagination">
+    {# <div class="pagination">
         {%if current_page > 1 %}
             <a href="{{ path('app_index', { page: current_page - 1 }) }}">Previous</a>
         {% endif %}
@@ -36,6 +35,6 @@
         {% if current_page < total_pages %}
             <a href="{{ path('app_index', { page: current_page + 1 }) }}">Next</a>
         {% endif %}
-    </div>
+    </div> #}
 </section>
 {% endblock %}
