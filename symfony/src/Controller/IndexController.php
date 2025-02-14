@@ -22,6 +22,7 @@ final class IndexController extends AbstractController
 
         $booksData = $bookRepository->findPaginatedBooks($page, $itemsPerPage);
 
+        $books = [];
         foreach ($booksData as $book) {
             $books[] = [
                 'id' => $book->getId(),
