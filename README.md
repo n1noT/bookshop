@@ -14,6 +14,9 @@ composer install
 
 ## Set database
 
+Navigate to the Symfony directory / container
+
+Then :
 ```
 php bin/console make:migration
 ```
